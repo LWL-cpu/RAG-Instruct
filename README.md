@@ -14,14 +14,16 @@
 Hello! Welcome to the repository for [RAG-Instruct](assets/paper.pdf)!
 
 <div align=center>
-<img src="assets/pic1.jpg"  width = "90%" alt="HuatuoGPT-o1" align=center/>
+<img src="assets/scaleRAG_1.jpg"  width = "90%" alt="RAG-Instruct" align=center/>
 </div>
 
 
-**HuatuoGPT-o1** is a medical LLM designed for advanced medical reasoning. It can identify mistakes, explore alternative strategies, and refine its answers.  By leveraging verifiable medical problems and a specialized medical verifier, it advances reasoning through:
+**RAG-Instruct** is a method for generating diverse and high-quality RAG instruction data. It synthesizes instruction datasets based on any source corpus, leveraging the following approaches:
 
-- Using the verifier to guide the search for a complex reasoning trajectory for fine-tuning LLMs.
-- Applying reinforcement learning (PPO) with verifier-based rewards to enhance complex reasoning further.
+- **Five RAG paradigms**, which represent diverse query-document relationships to enhance model generalization across tasks.
+- **Instruction simulation**, which enriches instruction diversity and quality by utilizing the strengths of existing instruction datasets.
+
+Using this approach, we constructed a 40K instruction dataset from Wikipedia, covering a wide range of RAG scenarios and tasks.
 
 We open-sourced our models, data, and code here.
 
@@ -37,7 +39,7 @@ We open-sourced our models, data, and code here.
 
 - **Deploy**
 
-HuatuoGPT-o1 can be used just like `Llama-3.1-8B-Instruct`. You can deploy it with tools like [vllm](https://github.com/vllm-project/vllm) or [Sglang](https://github.com/sgl-project/sglang),  or perform direct inference:
+RAG-Instruct can be used just like `Llama-3.1-8B-Instruct`. You can deploy it with tools like [vllm](https://github.com/vllm-project/vllm) or [Sglang](https://github.com/sgl-project/sglang),  or perform direct inference:
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -53,15 +55,6 @@ outputs = model.generate(**inputs, max_new_tokens=2048)
 print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ```
 
-HuatuoGPT-o1 adopts a *thinks-before-it-answers* approach, with outputs formatted as:
-
-```
-## Thinking
-[Reasoning process]
-
-## Final Response
-[Output]
-```
 
 ## 📚 Data
 - **Data Access**
@@ -140,15 +133,6 @@ accelerate launch \
     --num_sample_generations -1 \
     --report_to wandb
 ```
-
-## 🩺 HuatuoGPT Series 
-
-Explore our HuatuoGPT series:
-- [**HuatuoGPT**](https://github.com/FreedomIntelligence/HuatuoGPT): Taming Language Models to Be a Doctor
-- [**HuatuoGPT-II**](https://github.com/FreedomIntelligence/HuatuoGPT-II): One-stage Training for Medical Adaptation of LLMs
-- [**HuatuoGPT-Vision**](https://github.com/FreedomIntelligence/HuatuoGPT-Vision): Injecting Medical Visual Knowledge into Multimodal LLMs at Scale
-- [**HuatuoGPT-o1**](https://github.com/FreedomIntelligence/HuatuoGPT-o1): Towards Medical Complex Reasoning with LLMs
-
 
 ## 📖 Citation
 ```
