@@ -14,7 +14,7 @@
 Hello! Welcome to the repository for [RAG-Instruct](assets/paper.pdf)!
 
 <div align=center>
-<img src="assets/scaleRAG_1.jpg"  width = "90%" alt="RAG-Instruct" align=center/>
+<img src="assets/rag_instruct.png"  width = "90%" alt="RAG-Instruct" align=center/>
 </div>
 
 
