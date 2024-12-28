@@ -30,12 +30,12 @@ We open-sourced our models, data, and code here.
 ## 👨‍⚕️ Model
 - **Model Access**
 
-|                      | Backbone     | Supported Languages | Link                                                                  |
+<!-- |                      | Backbone     | Supported Languages | Link                                                                  |
 | -------------------- | ------------ | ----- | --------------------------------------------------------------------- |
 | **HuatuoGPT-o1-8B**  | LLaMA-3.1-8B  | English    | [HF Link](https://huggingface.co/FreedomIntelligence/HuatuoGPT-o1-8B) |
 | **HuatuoGPT-o1-70B** | LLaMA-3.1-70B | English    | [HF Link](https://huggingface.co/FreedomIntelligence/HuatuoGPT-o1-70B) |
 | **HuatuoGPT-o1-7B**  | Qwen2.5-7B   | English & Chinese | [HF Link](https://huggingface.co/FreedomIntelligence/HuatuoGPT-o1-7B) |
-| **HuatuoGPT-o1-72B** | Qwen2.5-72B  | English & Chinese | [HF Link](https://huggingface.co/FreedomIntelligence/HuatuoGPT-o1-72B) |
+| **HuatuoGPT-o1-72B** | Qwen2.5-72B  | English & Chinese | [HF Link](https://huggingface.co/FreedomIntelligence/HuatuoGPT-o1-72B) | -->
 
 - **Deploy**
 
@@ -43,8 +43,8 @@ RAG-Instruct can be used just like `Llama-3.1-8B-Instruct`. You can deploy it wi
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model = AutoModelForCausalLM.from_pretrained("FreedomIntelligence/HuatuoGPT-o1-8B",torch_dtype="auto",device_map="auto")
-tokenizer = AutoTokenizer.from_pretrained("FreedomIntelligence/HuatuoGPT-o1-8B")
+model = AutoModelForCausalLM.from_pretrained("FreedomIntelligence/RAG-Instruct-Llama3.1-8B",torch_dtype="auto",device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained("FreedomIntelligence/RAG-Instruct-Llama3.1-8B")
 
 input_text = "How to stop a cough?"
 messages = [{"role": "user", "content": input_text}]
