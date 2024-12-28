@@ -61,8 +61,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 | Data                  | Description                                                                                   | Link                                                                                           |
 | -------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Medical Verifiable Problems | Open-ended medical problems sourced from challenging medical exams,  paired with ground-truth answers. | [Link](https://huggingface.co/datasets/FreedomIntelligence/medical-o1-verifiable-problem)  |
-| SFT Data in Stage 1        | Fine-tuning data generated using GPT-4o, including complex chains of thought (**Complex CoT**) and output (**Response**). | [Link](https://huggingface.co/datasets/FreedomIntelligence/medical-o1-reasoning-SFT)       |
+| RAG-Instruct (Wikipedia) | Diverse RAG instruction data built based on Wikipedia corpus | [Link](https://huggingface.co/datasets/FreedomIntelligence/medical-o1-verifiable-problem)  |
 
 - **Data Construction**
 
@@ -72,67 +71,39 @@ We provide scripts to construct verifiable problems and searching reasoning path
 ```bash
 python construct_verifiable_medical_problems.py --data_path  data/demo_data.json --filter_data --model_name gpt-4o --api_key [your api key]
 ```
-**2. Searching Complex Reasoning Paths for SFT**
-
-```bash
-python search_for_complex_reasoning_path.py --data_path  data/demo_data.json --efficient_search True  --max_search_attempts 1 --max_search_depth 2 --model_name gpt-4o --api_key [your api key]
-```
 
 
 ## 🚀 Training
 
-- **Stage 1: Supervised Fine-Tuning (SFT)**
+- **Finetuning based on RAG-instruct**
 
 Fine-tune the model on an 8-GPU setup:
 ```bash
-accelerate launch --config_file ./configs/deepspeed_zero3.yaml \
+ accelerate launch --config_file ./configs/sft.yaml \
     --num_processes 8  \
     --num_machines 1 \
     --machine_rank 0 \
-    --deepspeed_multinode_launcher standard SFT_stage1.py \
-    --model_path [meta-llama/Llama-3.1-8B-Instruct] \
-    --data_path [FreedomIntelligence/medical-o1-reasoning-SFT] 
-```
-
-- **Stage 2: Reinforcement Learning (RL)**
-
-We provide a simple PPO script using the [trl](https://github.com/huggingface/trl) library. Below is an example for training an 8B model with PPO on an 8-GPU A100 machine. Ensure you first download our [medical verifier](https://huggingface.co/FreedomIntelligence/medical_o1_verifier_3B) as the reward model.
-
-```bash
-accelerate launch \
-	--num_processes 8 \
-	--num_machines 1 \
-	--machine_rank 0 \
-    --config_file ./configs/deepspeed_zero3.yaml \
-	--deepspeed_multinode_launcher standard RL_stage2.py \
-    --model_name_or_path [FreedomIntelligence/HuatuoGPT-o1-8B] \
-    --reward_model_path [FreedomIntelligence/medical_o1_verifier_3B] \
-    --value_model_path [meta-llama/Llama-3.2-3B-Instruct] \
-    --dataset_name  [FreedomIntelligence/medical-o1-verifiable-problem]\
-    --response_length 1300 \
-    --temperature 0.5 \
-    --local_rollout_forward_batch_size 8 \
-    --num_ppo_epochs 3 \
-    --num_mini_batches 1 \
-    --total_episodes 20000 \
-    --per_device_train_batch_size 1 \
+    --main_process_port 29502 \
+    --deepspeed_multinode_launcher standard train_rag_sft4.py \
+    --experiment_name RAG-Instruct-Llama3.1-8b \
+    --model_path /sds_wangby/models/Llama-3.1-8B \
+    --max_ckpts 2  \
+    --max_seq_len 4096 \
     --gradient_accumulation_steps 16 \
-    --bf16 True \
+    --data_path data_path \
     --output_dir ./ckpts \
-    --save_strategy steps \
-    --save_step 20 \
-    --save_total_limit 1 \
-    --eval_strategy steps \
-    --eval_steps 20 \
-    --kl_coef 0.03 \
-    --learning_rate 5e-7 \
-    --warmup_ratio 0.05 \
-    --gradient_checkpointing True \
-    --dataloader_num_workers 4 \
-    --run_name ppo_medical_o1_8B \
-    --num_sample_generations -1 \
-    --report_to wandb
+    --log_dir ./train_logs \
+    --n_epochs 3 \
+    --warmup_rates 0.05 \
+    --train_bsz_per_gpu 1 \
+    --eval_bsz_per_gpu 64 \
+    --learning_rate 5e-6 \
+    --gradient_checkpointing
 ```
+
+## 🔥 Inference
+
+- **Inference**
 
 ## 📖 Citation
 ```
