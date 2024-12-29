@@ -31,7 +31,7 @@ We open-sourced our models, data, and code here.
 You can create a conda environment by running the command below.
 
 ```
-conda env create -f environment.yml
+conda env create -f environment.yaml
 ```
 
 ## 👨‍⚕️ Model
