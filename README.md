@@ -99,7 +99,7 @@ We utilize several high-quality datasets as exemplars, including:
 - [Lmsys-chat-1M](https://huggingface.co/datasets/lmsys/lmsys-chat-1m)
 - [SlimOrca](https://huggingface.co/datasets/Open-Orca/OpenOrca)
 
-To ensure high-quality data, we filtered and sampled these datasets using GPT-4 to extract **knowledge-intensive data**.  Then using the exemplar dataset Q, we retrieve source documents to construct D*. Specifically, we match the exemplar instructions or questions with source documents by ranking their relevance.  For user convenience, we provide the **preprocessed and filtered exemplar dataset [here](https://example.com/preprocessed-exemplar-dataset)**.
+To ensure high-quality data, we filtered and sampled these datasets using GPT-4 to extract **knowledge-intensive data** Q.  Then using the exemplar data Q, we retrieve source documents to construct D*. Specifically, we match the exemplar instructions or questions with source documents by ranking their relevance.  For user convenience, we provide the **preprocessed and filtered exemplar dataset [here](https://example.com/preprocessed-exemplar-dataset)**.
 
 **3. Synthesize Data with Prompts.**
 Based on the retrieved documents D* and the exemplar data Q, we synthesize new data points using tailored prompts to create diverse and high-quality instruction-following datasets.
