@@ -63,7 +63,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 | -------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | RAG-Instruct (Wikipedia) | Diverse RAG instruction data built based on Wikipedia corpus | [Link](https://huggingface.co/datasets/FreedomIntelligence/medical-o1-verifiable-problem)  |
 
-- **Data Construction**
+## Data Construction
 
 We provide scripts to construct verifiable problems and searching reasoning paths.
 
@@ -95,15 +95,15 @@ We utilize several high-quality datasets as exemplars, including:
 To ensure high-quality data, we filtered and sampled these datasets using GPT-4 to extract **knowledge-intensive data**. For user convenience, we provide the **preprocessed and filtered exemplar dataset [here](https://example.com/preprocessed-exemplar-dataset)** that has undergone this rigorous selection process.
 
 **3. Retrieve Source Documents for Exemplar Data.**
-Using the exemplar dataset, we retrieve source documents to construct \( D^* \). Specifically, we match the exemplar instructions or questions with source documents by ranking their relevance. 
+Using the exemplar dataset Q, we retrieve source documents to construct D*. Specifically, we match the exemplar instructions or questions with source documents by ranking their relevance. 
 
 **4. Synthesize Data with Prompts.**
-Based on the retrieved documents \( D^* \) and the exemplar dataset, we synthesize new data points using tailored prompts to create diverse and high-quality instruction-following datasets.
+Based on the retrieved documents D* and the exemplar data Q, we synthesize new data points using tailored prompts to create diverse and high-quality instruction-following datasets.
 
 
 ## 🚀 Training
 
-- **Run Retriever**
+### **Run Retriever**
 To retrieve passages for training, use the following command:
 
 ```bash
@@ -125,7 +125,7 @@ python passage_retrieval.py \
   - From the retrieved results, we randomly sample documents ranked beyond the top 200 to construct \( D^- \).
   - This ensures the dataset contains a mix of relevant and unrelated information for better model training.
   
-- **Finetuning based on RAG-instruct**
+### **Finetuning based on RAG-instruct**
 
 Fine-tune the model on an 8-GPU setup:
 ```bash
