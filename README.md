@@ -122,7 +122,7 @@ python passage_retrieval.py \
     --model_name_or_path facebook/contriever-msmarco \
     --passages psgs_w100.tsv \
     --passages_embeddings "wikipedia_embeddings/*" \
-    --data RAG_INSTRCT_DATA_PATH \
+    --input_name RAG_INSTRCT_DATA_PATH \
     --output_dir YOUR_OUTPUT_FILE \
     --n_docs 250
 ```
