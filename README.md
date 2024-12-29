@@ -81,7 +81,7 @@ We utilize preprocessed passage data from DPR and embeddings generated using Con
   wget https://dl.fbaipublicfiles.com/contriever/embeddings/contriever-msmarco/wikipedia_embeddings.tar
   ```
 
-**2. Download Exemplar Datasets.** 
+**2. Prepare Exemplar Datasets.** 
 We utilize preprocessed passage data from DPR and embeddings generated using [Contriever](https://github.com/facebookresearch/contriever) :
 
 We utilize several high-quality datasets as exemplars, including:
@@ -92,15 +92,18 @@ We utilize several high-quality datasets as exemplars, including:
 - [Lmsys-chat-1M](https://huggingface.co/datasets/lmsys/lmsys-chat-1m)
 - [SlimOrca](https://huggingface.co/datasets/Open-Orca/OpenOrca)
 
-To ensure high-quality data, we filtered and sampled these datasets using GPT-4 to extract **knowledge-intensive data**. For user convenience, we provide the **preprocessed and filtered exemplar dataset [here](https://example.com/preprocessed-exemplar-dataset)** that has undergone this rigorous selection process.
+To ensure high-quality data, we filtered and sampled these datasets using GPT-4 to extract **knowledge-intensive data**.  Then using the exemplar dataset Q, we retrieve source documents to construct D*. Specifically, we match the exemplar instructions or questions with source documents by ranking their relevance.  For user convenience, we provide the **preprocessed and filtered exemplar dataset [here](https://example.com/preprocessed-exemplar-dataset)**.
 
-**3. Retrieve Source Documents for Exemplar Data.**
-Using the exemplar dataset Q, we retrieve source documents to construct D*. Specifically, we match the exemplar instructions or questions with source documents by ranking their relevance. 
-
-**4. Synthesize Data with Prompts.**
+**3. Synthesize Data with Prompts.**
 Based on the retrieved documents D* and the exemplar data Q, we synthesize new data points using tailored prompts to create diverse and high-quality instruction-following datasets.
 
-
+```bash
+cd data_gen
+python generate_data.py \
+    --data_path examplar_data/data.json \
+    --max_workers 16 \
+    --save_dir ./output_data/RAG-Instruct.json\
+```
 ## 🚀 Training
 
 ### **Run Retriever**
