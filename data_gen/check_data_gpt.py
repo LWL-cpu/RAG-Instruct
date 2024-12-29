@@ -5,15 +5,15 @@ import requests
 import os
 
 
-gpt_check_prompt = '''{question}\n上面是一个问题，请你判断检索外部信息对回答这个问题是否有帮助。如果有帮助请回答 "True", 否则回答 "False".'''
+gpt_check_prompt = '''{question}\n Please determine if retrieving external information would help answer the above question. If it helps, answer "True", otherwise answer "False".'''
 
 class GPT4:
     def __init__(self, model_name='gpt-4-turbo') -> None:
         self.key_ind = 0
         self.max_wrong_time = 10
         self.model_name = model_name
-        self.url = "https://api.ai-gaochao.cn/v1/chat/completions"
-        self.keys = [['sk-OSJYr1SDOVosYp6hB1695a010eC7425a8693D26c5a3fB2F8','']]
+        self.url = "your-url"
+        self.keys = [['your-key','']]
 
         assert len(self.keys) > 0, 'have no key'
         self.wrong_time = [0] * len(self.keys)
@@ -164,13 +164,11 @@ def main(data_list, gpt_check_prompt, target_num, gpt):
 
 # 示例用法
 data_list = [
-    '/223040263/wanlong/data_generation/data_normal/CamelAI_processed.json', 
-    '/223040263/wanlong/data_generation/data_normal/cot_alpaca_gpt4_processed.json', 
-    '/223040263/wanlong/data_generation/data_normal/EvolInstruct_70k_processed.json', 
-    '/223040263/wanlong/data_generation/data_normal/lmsys_processed.json', 
-    '/223040263/wanlong/data_generation/data_normal/platypus_processed.json', 
-    '/223040263/wanlong/data_generation/data_normal/ShareGPT_V3_processed.json', 
-    '/223040263/wanlong/data_generation/data_normal/slim_ocar_processed.json'
+    './data_normal/EvolInstruct_70k_processed.json', 
+    './data_normal/lmsys_processed.json', 
+    './data_normal/platypus_processed.json', 
+    './data_normal/ShareGPT_V3_processed.json', 
+    './data_normal/slim_ocar_processed.json'
 ]
 
 target_num = 3000
