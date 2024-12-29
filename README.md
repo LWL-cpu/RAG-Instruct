@@ -27,6 +27,13 @@ Using this approach, we constructed a 40K instruction dataset from Wikipedia, co
 
 We open-sourced our models, data, and code here.
 
+## Environment
+You can create a conda environment by running the command below.
+
+```
+conda env create -f environment.yml
+```
+
 ## 👨‍⚕️ Model
 - **Model Access**
 
