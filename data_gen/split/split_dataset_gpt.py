@@ -31,8 +31,8 @@ class GPT4:
         self.key_ind = 0
         self.max_wrong_time = 10
         self.model_name = model_name
-        self.url = "https://api.ai-gaochao.cn/v1/chat/completions"
-        self.keys = [['sk-OSJYr1SDOVosYp6hB1695a010eC7425a8693D26c5a3fB2F8', '']]
+        self.url = "YOUR_URL"
+        self.keys = [['YOUR-KEY', '']]
 
         assert len(self.keys) > 0, 'No API keys available'
         self.wrong_time = [0] * len(self.keys)
@@ -170,10 +170,10 @@ def main(dataset_type='HotpotQA', file_path='data.json'):
     # Select prompt and set output directory
     if dataset_type == 'TriviaQA':
         prompt = PROMPT_SINGLE
-        output_dir = '/223040263/wanlong/data_generation/split_data/triviaqa'
+        output_dir = '../split_data/triviaqa'
     elif dataset_type == 'HotpotQA':
         prompt = PROMPT_MULTI
-        output_dir = '/223040263/wanlong/data_generation/split_data/hotpotqa'
+        output_dir = '../split_data/hotpotqa'
     else:
         raise ValueError("Unsupported dataset type. Choose 'TriviaQA' or 'HotpotQA'.")
 
@@ -183,6 +183,6 @@ def main(dataset_type='HotpotQA', file_path='data.json'):
 
 # Execute main function
 if __name__ == "__main__":
-    main(dataset_type='TriviaQA', file_path='/223040263/wanlong/self-rag/data/eval_data/triviaqa_test_w_gs.jsonl')
+    main(dataset_type='TriviaQA', file_path='')
 
 
