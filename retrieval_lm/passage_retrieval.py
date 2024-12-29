@@ -398,20 +398,4 @@ if __name__ == "__main__":
     src.slurm.init_distributed_mode(args)
     main(args)
 
-
-
-    '''
-    python passage_retrieval.py --model_name_or_path /sds_wangby/models/cjy/model_download2/contriever-msmarco --passages /223040263/wanlong/psgs_w100.tsv --passages_embeddings "/223040263/wanlong/wikipedia_embeddings/*"    --output_dir './selected_data'  --n_docs 50 --input_name /223040263/wanlong/data_generation/medqa_3k.json
-    '''
-
-    '''
-    python passage_retrieval.py --model_name_or_path /223040263/wanlong/models/codebert-base --passages /223040263/wanlong/Code/database/data/python/final/jsonl/python_merged.jsonl --passages_embeddings "/223040263/wanlong/Code/database/data/embeddings/python/*"    --output_dir './selected_data'  --n_docs 15
-    '''
-
-    '''
-    python passage_retrieval.py --model_name_or_path /223040263/wanlong/models/math-bert --passages /223040263/wanlong/gsm8k/data/math_text.jsonl --passages_embeddings "/223040263/wanlong/Code/database/data/embeddings/java/*"    --output_dir './selected_data'  --n_docs 15
-    '''
-
-    '''
-    python passage_retrieval.py --model_name_or_path /sds_wangby/models/cjy/model_download2/contriever-msmarco --passages /223040263/wanlong/MedQA/med_qa_en_books.jsonl --passages_embeddings "/223040263/wanlong/MedQA/MedQA_embeddings/*"    --output_dir './selected_data'  --n_docs 50 --input_name /223040263/wanlong/data_generation/medqa_3k.json
-    '''
+    
