@@ -67,14 +67,64 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 We provide scripts to construct verifiable problems and searching reasoning paths.
 
-**1. Constructing Verifiable Problems from multi-choice questions.** 
-```bash
-python construct_verifiable_medical_problems.py --data_path  data/demo_data.json --filter_data --model_name gpt-4o --api_key [your api key]
-```
+**1. Download Source Documents.** 
+We utilize preprocessed passage data from DPR and embeddings generated using Contriever-MSMARCO:
+
+- Download the preprocessed passage data:
+  ```bash
+  cd retrieval_lm
+  wget https://dl.fbaipublicfiles.com/dpr/wikipedia_split/psgs_w100.tsv.gz
+  ```
+  
+- Download the generated embeddings:
+  ```bash
+  wget https://dl.fbaipublicfiles.com/contriever/embeddings/contriever-msmarco/wikipedia_embeddings.tar
+  ```
+
+**2. Download Exemplar Datasets.** 
+We utilize preprocessed passage data from DPR and embeddings generated using Contriever-MSMARCO:
+
+We utilize several high-quality datasets as exemplars, including:
+
+- [ShareGPT](https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered)
+- [Alpaca](https://github.com/tatsu-lab/stanford_alpaca)
+- [WizardLM-70K](https://huggingface.co/datasets/WizardLM/WizardLM_evol_instruct_V70K)
+- [Lmsys-chat-1M](https://huggingface.co/datasets/lmsys/lmsys-chat-1m)
+- [SlimOrca](https://huggingface.co/datasets/Open-Orca/OpenOrca)
+
+To ensure high-quality data, we filtered and sampled these datasets using GPT-4 to extract **knowledge-intensive data**. For user convenience, we provide the **preprocessed and filtered exemplar dataset [here](https://example.com/preprocessed-exemplar-dataset)** that has undergone this rigorous selection process.
+
+**3. Retrieve Source Documents for Exemplar Data.**
+Using the exemplar dataset, we retrieve source documents to construct \( D^* \). Specifically, we match the exemplar instructions or questions with source documents by ranking their relevance. 
+
+**4. Synthesize Data with Prompts.**
+Based on the retrieved documents \( D^* \) and the exemplar dataset, we synthesize new data points using tailored prompts to create diverse and high-quality instruction-following datasets.
 
 
 ## 🚀 Training
 
+- **Run Retriever**
+To retrieve passages for training, use the following command:
+
+```bash
+cd retrieval_lm
+python passage_retrieval.py \
+    --model_name_or_path facebook/contriever-msmarco \
+    --passages psgs_w100.tsv \
+    --passages_embeddings "wikipedia_embeddings/*" \
+    --data RAG_INSTRCT_DATA_PATH \
+    --output_dir YOUR_OUTPUT_FILE \
+    --n_docs 250
+```
+- **Input Requirements**:
+  - The input file must be in `json` or `jsonl` format.
+  - Each instance should include either a `question` or `instruction` field, which will be used as the query during retrieval.
+
+- **Negative Sampling for \( D^- \)**:
+  - For each data point, we retrieve documents using \( q^* \) as the query.
+  - From the retrieved results, we randomly sample documents ranked beyond the top 200 to construct \( D^- \).
+  - This ensures the dataset contains a mix of relevant and unrelated information for better model training.
+  
 - **Finetuning based on RAG-instruct**
 
 Fine-tune the model on an 8-GPU setup:
