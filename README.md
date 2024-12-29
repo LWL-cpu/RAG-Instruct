@@ -82,7 +82,7 @@ We utilize preprocessed passage data from DPR and embeddings generated using Con
   ```
 
 **2. Download Exemplar Datasets.** 
-We utilize preprocessed passage data from DPR and embeddings generated using Contriever-MSMARCO:
+We utilize preprocessed passage data from DPR and embeddings generated using [Contriever](https://github.com/facebookresearch/contriever) :
 
 We utilize several high-quality datasets as exemplars, including:
 
