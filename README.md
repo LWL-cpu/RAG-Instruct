@@ -129,7 +129,7 @@ Fine-tune the model on an 8-GPU setup:
     --main_process_port 29502 \
     --deepspeed_multinode_launcher standard train_rag_sft4.py \
     --experiment_name RAG-Instruct-Llama3.1-8b \
-    --model_path /sds_wangby/models/Llama-3.1-8B \
+    --model_path ./models/Llama-3.1-8B \
     --max_ckpts 2  \
     --max_seq_len 4096 \
     --gradient_accumulation_steps 16 \
