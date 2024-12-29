@@ -116,15 +116,8 @@ python passage_retrieval.py \
     --output_dir YOUR_OUTPUT_FILE \
     --n_docs 250
 ```
-- **Input Requirements**:
-  - The input file must be in `json` or `jsonl` format.
-  - Each instance should include either a `question` or `instruction` field, which will be used as the query during retrieval.
+The input file must be in `json` or `jsonl` format. Each instance should include either a `question` or `instruction` field, which will be used as the query during retrieval.
 
-- **Negative Sampling for \( D^- \)**:
-  - For each data point, we retrieve documents using \( q^* \) as the query.
-  - From the retrieved results, we randomly sample documents ranked beyond the top 200 to construct \( D^- \).
-  - This ensures the dataset contains a mix of relevant and unrelated information for better model training.
-  
 ### **Finetuning based on RAG-instruct**
 
 Fine-tune the model on an 8-GPU setup:
