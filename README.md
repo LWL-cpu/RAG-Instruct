@@ -57,13 +57,13 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 
 ## 📚 Data
-- **Data Access**
+### Data Access
 
 | Data                  | Description                                                                                   | Link                                                                                           |
 | -------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | RAG-Instruct (Wikipedia) | Diverse RAG instruction data built based on Wikipedia corpus | [Link](https://huggingface.co/datasets/FreedomIntelligence/medical-o1-verifiable-problem)  |
 
-## Data Construction
+### Data Construction
 
 We provide scripts to construct verifiable problems and searching reasoning paths.
 
