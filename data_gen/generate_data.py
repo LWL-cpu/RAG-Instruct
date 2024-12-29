@@ -29,8 +29,8 @@ class GPT4:
         self.key_ind = 0
         self.max_wrong_time = 5
         self.model_name = model_name
-        self.url = "https://api.ai-gaochao.cn/v1/chat/completions"
-        self.keys = [['sk-OSJYr1SDOVosYp6hB1695a010eC7425a8693D26c5a3fB2F8', '']]
+        self.url = "YOUR-URL"
+        self.keys = [['YOUR-KEY', '']]
 
         assert len(self.keys) > 0, 'have no key'
         self.wrong_time = [0] * len(self.keys)
@@ -221,9 +221,9 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_path", type=str, default="/223040263/wanlong/data_generation/data_final/merged_output.json", help="Path to data for normal_from")
+    parser.add_argument("--data_path", type=str, help="Path to data for normal_from")
     parser.add_argument("--max_workers", type=int, default=40, help="Maximum number of workers for ThreadPoolExecutor")
-    parser.add_argument("--save_dir", type=str, default="/223040263/wanlong/data_generation/data_final_v4", help="save_dir")
+    parser.add_argument("--save_dir", type=str, help="save_dir")
 
     args = parser.parse_args()
     main(args)
